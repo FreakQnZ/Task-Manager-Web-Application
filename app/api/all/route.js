@@ -2,6 +2,8 @@ import { user } from "../../utils/database/models/model"
 import { NextResponse } from 'next/server'
 import {connectDB} from '@/app/utils/database/connect'
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   await connectDB()
 
