@@ -4,7 +4,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Sidebar from './components/sidebar/sidebar'
-import { ClerkProvider, auth } from '@clerk/nextjs'
+import { ClerkProvider } from '@clerk/nextjs'
+import {auth} from '@clerk/nextjs/server'
 import Bottombar from './components/bottombar/bottombar'
 
 export const dynamic = "force-dynamic";
