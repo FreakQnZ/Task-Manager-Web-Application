@@ -31,7 +31,7 @@ function Card({ uId, id, title, desc, comp, imp, archive, func }: CardProps) {
 
     // Send a POST request to the API
     try {
-      const response = await fetch('http://localhost:3000/api/update', {
+      const response = await fetch('/api/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ function Card({ uId, id, title, desc, comp, imp, archive, func }: CardProps) {
       console.log(updatedTask)
   
     try {
-      const response = await fetch('http://localhost:3000/api/update', {
+      const response = await fetch('/api/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function Card({ uId, id, title, desc, comp, imp, archive, func }: CardProps) {
     console.log("secondary is checked is ", secondaryIsChecked, " is checked is ", isChecked, " updated task is ", updatedTask)
 
     try {
-      const response = await fetch('http://localhost:3000/api/update', {
+      const response = await fetch('/api/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

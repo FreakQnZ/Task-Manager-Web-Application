@@ -24,7 +24,7 @@ function AddCard({uId, func }: CardProps) {
 
     // Send a POST request to the API
     try {
-      const response = await fetch('http://localhost:3000/api/new', {
+      const response = await fetch('/api/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

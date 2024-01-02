@@ -21,7 +21,7 @@ export default function Home() {
 
   async function fetchUsers() {
     setIsLoading(true);
-    const res = await fetch(`http://localhost:3000/api/all?userId=${uId}`, { cache: 'no-store' });
+    const res = await fetch(`/api/all?userId=${uId}`, { cache: 'no-store' });
     setUsers(await res.json())
     setIsLoading(false)
   }
