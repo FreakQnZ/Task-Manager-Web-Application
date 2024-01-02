@@ -1,5 +1,3 @@
-"use client"
-
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -8,7 +6,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import {auth} from '@clerk/nextjs/server'
 import Bottombar from './components/bottombar/bottombar'
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 // import { SignOutButton, SignedIn, UserButton, useUser } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
