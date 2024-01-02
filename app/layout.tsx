@@ -4,6 +4,8 @@ import './globals.css'
 import Sidebar from './components/sidebar/sidebar'
 import { ClerkProvider, auth } from '@clerk/nextjs'
 import Bottombar from './components/bottombar/bottombar'
+
+export const dynamic = "force-dynamic";
 // import { SignOutButton, SignedIn, UserButton, useUser } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
