@@ -33,9 +33,9 @@ function AddCard({uId, func }: CardProps) {
           userId: uId,
           taskTitle: editTitle,
           taskDesc: editDesc,
-          imp: 1,
+          imp: 0,
           comp: 0,
-          archive: 1
+          archive: 0
         }),
       });
 

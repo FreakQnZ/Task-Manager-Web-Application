@@ -4,6 +4,7 @@ import './globals.css'
 import Sidebar from './components/sidebar/sidebar'
 import { ClerkProvider, auth } from '@clerk/nextjs'
 import Bottombar from './components/bottombar/bottombar'
+// import { SignOutButton, SignedIn, UserButton, useUser } from '@clerk/nextjs'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +19,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  // const {isSignedIn, user, isLoaded} = useUser();
 
   const { userId } : { userId: string | null } = auth();
   return (

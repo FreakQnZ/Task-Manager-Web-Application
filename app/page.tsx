@@ -80,19 +80,25 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className='m-2 p-2 mt-10 h-5/6 overflow-y-scroll grid grid-cols-3'>
+      <>
+      <h1 className='text-3xl pl-10 pt-5 border-0 border-b-2 border-b-success w-fit pb-2 pr-4'>All tasks</h1>
+      <div className='m-2 p-2 mt-10 h-5/6 overflow-y-scroll grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
         <Skeleton />
       </div>
+      </>
     );
   }
 
   return (
     <main className='h-full'>
       <h1 className='text-3xl pl-10 pt-5 border-0 border-b-2 border-b-success w-fit pb-2 pr-4'>All tasks</h1>
-      <div className='m-2 p-2 mt-10 h-5/6 overflow-y-scroll grid grid-cols-3'>
+      <div className='m-2 p-2 mt-10 h-5/6 overflow-y-scroll grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
         {users.tasks?.map((user: any, id: number) => (
           <div key={id}>
-            <Card uId={uId} id={user._id} title={user.taskTitle} desc={user.taskDesc} func={fetchUsers} />
+            <Card uId={uId} id={user._id} title={user.taskTitle} desc={user.taskDesc} comp={user.comp} imp={user.imp} archive={user.archive} func={fetchUsers} />
           </div>
         ))}
         <AddCard uId={uId} func={fetchUsers} />

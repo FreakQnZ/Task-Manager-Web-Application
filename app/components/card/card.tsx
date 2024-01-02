@@ -5,13 +5,18 @@ interface CardProps {
   id: string;
   title: string;
   desc: string;
+  comp: number;
+  imp: number;
+  archive: number;
   func: Function;
 }
 
-function Card({ uId, id, title, desc, func }: CardProps) {
+function Card({ uId, id, title, desc, comp, imp, archive, func }: CardProps) {
   const [editTitle, setEditTitle] = useState(title);
   const [editDesc, setEditDesc] = useState(desc);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [secondaryIsChecked, setSecondaryIsChecked] = useState(false);
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditTitle(event.target.value);
@@ -57,6 +62,81 @@ function Card({ uId, id, title, desc, func }: CardProps) {
     func();
   };
 
+  const handleCheckboxChange = async () => {
+
+    console.log("in handleCheckboxChange")
+
+    setIsChecked(!isChecked);
+    setSecondaryIsChecked(false);
+
+    
+  
+    const updatedTask = isChecked
+      ? {imp: 0, comp: 0,  archive: 0 }
+      : {imp: 0, comp: 1,  archive: 0 };
+
+      console.log(updatedTask)
+  
+    try {
+      const response = await fetch('http://localhost:3000/api/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: uId,
+          taskId: id,
+          updates: updatedTask, 
+        }),
+      });
+  
+      if (response.ok) {
+        console.log('Task updated successfully');
+      } else {
+        console.error('Failed to update task');
+      }
+    } catch (error) {
+      console.error('Error sending request:', error);
+    }
+  };
+
+  const handleSecondaryBoxChange = async () => {
+
+
+    setSecondaryIsChecked(!secondaryIsChecked);
+    // const updatedTask = isChecked
+    // ? {imp: 0, archive: 1 }
+    // : {imp: 1, archive: 0 };
+
+
+    const updatedTask = isChecked ? secondaryIsChecked? {imp: 0, archive: 0} : {imp: 0, archive: 1} : secondaryIsChecked? {imp: 0, archive: 0} : {imp: 1, archive: 0}
+
+    console.log("secondary is checked is ", secondaryIsChecked, " is checked is ", isChecked, " updated task is ", updatedTask)
+
+    try {
+      const response = await fetch('http://localhost:3000/api/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: uId,
+          taskId: id,
+          updates: updatedTask, 
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Task updated successfully');
+      } else {
+        console.error('Failed to update task');
+      } 
+    } catch (error) {
+      console.error('Error sending request:', error);
+    }
+
+  }
+
   const openEditModal = () => {
     setIsModalOpen(true);
   };
@@ -72,6 +152,11 @@ function Card({ uId, id, title, desc, func }: CardProps) {
   };
 
   useEffect(() => {
+    comp == 1 ? setIsChecked(true) : setIsChecked(false);
+    imp == 1 || archive == 1 ? setSecondaryIsChecked(true) : setSecondaryIsChecked(false);
+  }, [])
+
+  useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
 
     return () => {
@@ -84,11 +169,30 @@ function Card({ uId, id, title, desc, func }: CardProps) {
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
         <p>{desc}</p>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-between items-center">
+          <div id='actions'>
+            <input
+              type="checkbox"
+              className="toggle"
+              checked={isChecked}
+              onChange={() => {
+                handleCheckboxChange();
+              }}
+            />
+            <div className="form-control">
+              <label className="label cursor-pointer gap-2">
+                <span className="label-text">{isChecked ? 'Archive' : 'Important'}</span>
+                <input type="checkbox" className="checkbox checkbox-primary" checked={secondaryIsChecked} onChange={() => {
+                  handleSecondaryBoxChange();
+                }} />
+              </label>
+            </div>
+          </div>
           <button className="btn btn-primary" onClick={openEditModal}>
             Edit Task
           </button>
         </div>
+        
       </div>
 
       {isModalOpen && (
@@ -109,6 +213,7 @@ function Card({ uId, id, title, desc, func }: CardProps) {
                     className="input input-bordered w-full max-w-xs"
                     value={editTitle}
                     onChange={handleTitleChange}
+                    required
                   />
                 </div>
 
@@ -120,6 +225,7 @@ function Card({ uId, id, title, desc, func }: CardProps) {
                     maxLength={60}
                     value={editDesc}
                     onChange={handleDescChange}
+                    required
                   ></textarea>
                 </div>
 
