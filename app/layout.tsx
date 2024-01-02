@@ -12,10 +12,10 @@ export const dynamic = "force-dynamic";
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Task Manager',
-  description: 'Manager your tasks through a simple and intuitive portal',
-}
+// export const metadata: Metadata = {
+//   title: 'Task Manager',
+//   description: 'Manager your tasks through a simple and intuitive portal',
+// }
 
 
 export default function RootLayout({

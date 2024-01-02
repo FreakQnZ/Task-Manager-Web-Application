@@ -6,6 +6,7 @@ import Card from './components/card/card'
 import AddCard from './components/card/newcard';
 import Skeleton from './components/card/skeleton';
 import { useUser } from '@clerk/nextjs';
+export const dynamic = "force-dynamic";
 
 // const fetcher = (url : any) => fetch(url).then((res) => {res.json})
 export default function Home() {

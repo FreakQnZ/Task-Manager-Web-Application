@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SignOutButton, SignedIn, UserButton, useUser } from '@clerk/nextjs'
 import { PiSignOutBold } from "react-icons/pi";
+export const dynamic = "force-dynamic";
 
 function Sidebar() {
 
