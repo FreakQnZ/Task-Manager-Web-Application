@@ -22,7 +22,6 @@ function AddCard({uId, func }: CardProps) {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Send a POST request to the API
     try {
       const response = await fetch('/api/new', {
         method: 'POST',
@@ -40,10 +39,8 @@ function AddCard({uId, func }: CardProps) {
       });
 
       if (response.ok) {
-        // Handle success
         console.log('Task updated successfully');
       } else {
-        // Handle error
         console.error('Failed to update task');
       }
     } catch (error) {
@@ -92,12 +89,12 @@ function AddCard({uId, func }: CardProps) {
           id='modal'
           className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
         >
-          <div className="bg-base-100 p-4 rounded-xl shadow-md">
+          <div className="bg-base-100 p-4 rounded-xl shadow-md min-w-16 m-2">
             <h3 className="font-bold text-lg">Add task</h3>
             <p className="py-4">Press ESC key to close</p>
             <div className="flex justify-center">
               <form className="flex flex-col items-center" onSubmit={handleFormSubmit}>
-                <div className="flex justify-start items-center gap-4 p-2 w-full">
+                <div className="flex flex-col justify-start items-center gap-4 p-2 w-full">
                   <p>Title</p>
                   <input
                     type="text"
@@ -105,10 +102,11 @@ function AddCard({uId, func }: CardProps) {
                     className="input input-bordered w-full max-w-xs"
                     value={editTitle}
                     onChange={handleTitleChange}
+                    required
                   />
                 </div>
 
-                <div className="flex justify-start items-center gap-4 p-2 w-full">
+                <div className="flex flex-col justify-start items-center gap-4 p-2 w-full">
                   <p>Description</p>
                   <textarea
                     className="textarea textarea-bordered"
@@ -116,6 +114,7 @@ function AddCard({uId, func }: CardProps) {
                     maxLength={60}
                     value={editDesc}
                     onChange={handleDescChange}
+                    required
                   ></textarea>
                 </div>
 
