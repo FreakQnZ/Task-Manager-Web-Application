@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MdOutlineDelete } from "react-icons/md";
 
 interface CardProps {
   uId: string | undefined;
@@ -137,6 +138,27 @@ function Card({ uId, id, title, desc, comp, imp, archive, func }: CardProps) {
 
   }
 
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await fetch('/api/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify({
+          userId: uId,
+          taskId: id,
+        })
+      })
+    }
+    catch (error) {
+      console.error('Error sending request:', error);
+    }
+
+    func()
+  }
+
   const openEditModal = () => {
     setIsModalOpen(true);
   };
@@ -167,7 +189,10 @@ function Card({ uId, id, title, desc, comp, imp, archive, func }: CardProps) {
   return (
     <div className="h-64 card min-w-72 max-w-96 bg-base-100 shadow-xl m-2">
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
+        <div className="card-title flex justify-between w-full">
+        <h2>{title}</h2>
+        <div className=' text-error text-2xl cursor-pointer' onClick={() => handleDelete(id)}><MdOutlineDelete /></div>
+        </div>
         <p>{desc}</p>
         <div className="card-actions justify-between items-center">
           <div id='actions'>
